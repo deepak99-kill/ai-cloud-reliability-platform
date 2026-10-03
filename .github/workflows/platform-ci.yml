@@ -1,0 +1,28 @@
+name: Platform CI
+
+on:
+  push:
+    branches:
+      - main
+      - devops-platform
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    name: Validate Project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Git repository
+        run: git status
+
+      - name: Validate Docker Compose
+        run: docker compose config > /dev/null
+
+      - name: CI validation successful
+        run: echo "Platform CI validation completed successfully."
